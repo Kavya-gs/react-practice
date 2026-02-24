@@ -1,16 +1,30 @@
-# React + Vite
+# React Practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Minimal Vite + React playground with small login/register and form examples.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install deps and run the dev server:
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Open the app at the port Vite shows (default http://localhost:5173).
 
-## Expanding the ESLint configuration
+## Day 1 — What I learned & implemented
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Where I learned: basics of React forms and using Formik for form state and validation.
+- What I implemented:
+  - Simple login and registration form components.
+  - Formik integration for form state, validation, and submission handling.
+  - Basic client-side validation and styled inputs.
+
+## Important files
+- `src/main.jsx` — app bootstrap
+- `src/App.jsx` — main app container
+- `src/components/` — form and auth components (e.g., `CustomLogin.jsx`, `RegisterFields.jsx`, `YtForm.jsx`)
+
+
+
