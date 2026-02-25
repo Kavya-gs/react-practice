@@ -1,71 +1,63 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { useFieldArray } from 'react-hook-form'
-import yupResolver from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import "../App.css";
+
 
 const YtForm = () => {
   const form = useForm({
-    defaultValues: {
-      username: "",
-      email: "",
-      channel: "",
-      social : {
-        twitter: "",
-        facebook: "",
-      },
-      phoneNumbers: ["", ""],
+    defaultValues: async () => {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+      const data = await response.json();
+      return {
+        username: data.username,
+        email: data.email,
+        channel: data.name,
+      }
     }
   });
-
-  const { register, control, handleSubmit, formState, isDirty} = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
-
-  const {fields, append, remove} = useFieldArray({
-    name: "phoneNumbers",
-    control,
-  })
+  const { name, ref, onChange, onBlur } = register("username");
 
   const onSubmit = (data) => {
-    console.log("YtForm Data", data)
+    console.log("Form Submitted", data);
   }
-  
-  const watchUsername = watch("username", "email");
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <h2>Watched Value: {JSON.stringify(watchUsername)}</h2>
-          <input type="text" id="username" {...register("username", { required: "Username is required" })} />
-          {errors.username && <p>{errors.username.message}</p>}
+      <h1>YT Form</h1>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <div className='form-control'>
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" name={name} placeholder='Enter Username' {...register("username", { required: "Username is required" })} />
+            <p className='error'>{errors.username?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" {...register("email", { required: "Email is required" })} />
-          {errors.email && <p>{errors.email.message}</p>}
+        <div className='form-control'>
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" placeholder='Enter Your Email' name="email" {...register("email", { pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email address" }, validate: { notAdmin: (fieldValue) => {
+          return fieldValue !== "admin@example.com" || "Enter a different email address";
+        }, notBlack: (fieldValue) => {
+          return fieldValue !== "black@example.com" || "This email is blacklisted";
+        } } })} />
+        <p className='error'>{errors.email?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="channel">Channel</label>
-          <input type="text" id="channel" {...register("channel", { required: "Channel is required" })} />
-          {errors.channel && <p>{errors.channel.message}</p>}
+        <div className='form-control'>
+        <label htmlFor="channel">Channel</label>
+        <input type="text" id="channel" placeholder='Enter Your Channel Name' name="channel" {...register("channel")} />
+        <p className='error'>{errors.channel?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="twitter">Twitter</label>
-          <input type="text" id="twitter" {...register("social.twitter")} />
+        <div className='form-control'>
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" placeholder='Enter Your Password' name="password" {...register("password")} />
+        <p className='error'>{errors.password?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="facebook">Facebook</label>
-          <input type="text" id="facebook" {...register("social.facebook")} />
-        </div>
-
-        <button type="submit">Submit</button>
+        <button>Submit</button>
+        
       </form>
     </div>
   )

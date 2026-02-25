@@ -4,6 +4,8 @@ import RegisterFields from './components/RegisterFields'
 import CustomLogin from './components/CustomLogin'
 import LoginBasic from './components/LoginBasic'
 import YtForm from './components/YtForm'
+import YtFormNew from './components/YtFormNew'
+import { YupYtForm } from './components/YupYtForm'
 
 
 const App = () => {
@@ -11,8 +13,11 @@ const App = () => {
     <>
     {/* <Login /> */}
     {/* <RegisterFields />   */}
-    <CustomLogin/>
-    <LoginBasic />
+    {/* <CustomLogin/>
+    <LoginBasic /> */}
+    {/* <YtForm /> */}
+    {/* <YtFormNew /> */}
+    <YupYtForm />
     </>
   )
 }
